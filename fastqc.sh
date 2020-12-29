@@ -3,12 +3,6 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1000M
 #SBATCH --time=02:00:00
-#SBATCH --job-name=fastqc
-#SBATCH --mail-user=michele.leemann@students.unibe.ch
-#SBATCH --mail-type=begin,end,fail
-#SBATCH --output=/home/mleemann/output_fastqc_%j.o
-#SBATCH --error=/home/mleemann/error_fastqc_%j.e
-#SBATCH --partition=pcourse80
 
 module add UHTS/Quality_control/fastqc/0.11.7
 
