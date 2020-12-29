@@ -6,10 +6,13 @@
 
 module add UHTS/Aligner/hisat/2.2.1
 
+wget -O GRCh38.p13.fa.gz ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_35/GRCh38.p13.genome.fa.gz
+gunzip -c GRCh38.p13.fa.gz > GRCh38.p13.fa
+
 GENOME=/data/courses/rnaseq/lncRNAs/Project1/references/hg38/GRCh38.p13
 INDEX_BASE=hg38
 
-extract_splice_sites.py ${GENOME}.gtf > ${INDEX_BASE}.ss
-extract_exons.py ${GENOME}.gtf > ${INDEX_BASE}.exon
+extract_splice_sites.py ${GENOME}.fa > ${INDEX_BASE}.ss
+extract_exons.py ${GENOME}.fa > ${INDEX_BASE}.exon
 
 hisat2-build --ss ${INDEX_BASE}.ss --exon ${INDEX_BASE}.exon ${GENOME}.fa ${INDEX_BASE}
