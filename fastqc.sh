@@ -12,14 +12,18 @@
 
 module add UHTS/Quality_control/fastqc/0.11.7
 
-for f in `ls /data/courses/rnaseq/lncRNAs/Project1/michele/fastq/merged_fastq/*.fastq.gz | sed 's/.fastq.gz//' `
+DIR=/data/courses/rnaseq/lncRNAs/Project1/michele/fastq/merged_fastq/
+OUTDIR=/data/courses/rnaseq/lncRNAs/Project1/michele/fastqc/
+
+for f in `ls $DIR*.fastq.gz | sed 's/.fastq.gz//' `
 do
 fastqc -t 2 ${f}.fastq.gz
 done
 
-mv /data/courses/rnaseq/lncRNAs/Project1/michele/fastq/merged_fastq/*fastqc* /data/courses/rnaseq/lncRNAs/Project1/michele/fastqc/D_Pt8
+mv $DIR*fastqc* $OUTDIR
 
-cd /data/courses/rnaseq/lncRNAs/Project1/michele/fastqc/
+cd $OUTDIR
 
 module add UHTS/Analysis/MultiQC/1.8
+
 multiqc .
