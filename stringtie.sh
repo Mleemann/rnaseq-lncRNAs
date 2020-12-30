@@ -14,3 +14,5 @@ for f in `ls $DIR/*.bam | sed 's/.bam//' `
 do
 stringtie -G $REFERENCE/gencode.v35.annotation.gtf -o ${f}.gtf ${f}.bam 
 done
+
+stringtie --merge -G $REFERENCE/gencode.v35.annotation.gtf -o stringtie_merged.gtf mergelist.txt
