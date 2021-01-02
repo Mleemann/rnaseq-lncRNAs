@@ -8,7 +8,7 @@ sample_id <- dir(file.path('/Users/Michele/Desktop/sleuth/kallisto2/'))
 
 kal_dirs <- file.path('/Users/Michele/Desktop/sleuth/kallisto2/', sample_id)
 
-s2c <- read.table('/Users/Michele/Documents/UNI/HS2020/rnaSequencing/Project/s2c_table.txt', header = TRUE)
+s2c <- read.table('s2c_table.txt', header = TRUE)
 s2c <- dplyr::mutate(s2c, path = file.path('kallisto2', sample, 'abundance.h5'))
 s2c
 
