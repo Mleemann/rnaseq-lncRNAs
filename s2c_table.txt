@@ -1,0 +1,13 @@
+  sample  condition 
+1 A24wt_1 0C  
+2 A24wt_2 0C  
+3 A24wt_3 0C  
+4 D_Pt2_1 2C 
+5 D_Pt2_2 2C 
+6 D_Pt2_3 2C 
+7 D_Pt4_1 4C 
+8 D_Pt4_2 4C 
+9 D_Pt4_3 4C 
+10  D_Pt8_1 8C 
+11  D_Pt8_2 8C 
+12  D_Pt8_3 8C 
