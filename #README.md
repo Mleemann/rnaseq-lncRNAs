@@ -16,7 +16,7 @@ Dataset: 3 replicates for each of 4 condition (A24wt, Pt2, Pt4, Pt8), each repli
 10. build kallisto index for quantification: **kallisto_index.sh**
 11. transcript expression quantification: **kallisto.sh**
 12. differential expression analysis: **sleuth.R**
-13. * compare 5' end annotaions: **tss_intersect.sh* 
-14. * compare 3' end annotaions: **polyA_intersect.sh** 
-15. * evaluation of coding potential: **cpat.sh**
+13. compare 5' end annotaions: **tss_intersect.sh** 
+14. compare 3' end annotaions: **polyA_intersect.sh** 
+15. evaluation of coding potential: **cpat.sh**
 16. detection of intergenic genes: **intergenic.sh**
