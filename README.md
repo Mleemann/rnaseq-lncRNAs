@@ -13,10 +13,9 @@ Dataset: 3 replicates for each of 4 condition (A24wt, Pt2, Pt4, Pt8), each repli
 7. transcriptome assembly: **stringtie.sh**
 8. merging assembled GTF files: **stringtie_gtf_merging.sh**
 9. statistics on the meta-assembly file: **stringtie_stats.sh**
-10. build kallisto index for quantification: **kallisto_index.sh**
-11. transcript expression quantification: **kallisto.sh**
-12. differential expression analysis: **sleuth.R**
-13. compare 5' end annotaions: **tss_intersect.sh** 
-14. compare 3' end annotaions: **polyA_intersect.sh** 
-15. evaluation of coding potential: **cpat.sh**
-16. detection of intergenic genes: **intergenic.sh**
+10. gene expression quantification: **htseq_count.sh**
+11. differential expression analysis: **DESeq2.R**
+12. compare 5' end annotaions: **tss_intersect.sh** 
+13. compare 3' end annotaions: **polyA_intersect.sh** 
+14. evaluation of coding potential: **cpat.sh**
+15. detection of intergenic genes: **intergenic.sh**
