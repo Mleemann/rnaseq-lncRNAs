@@ -13,43 +13,61 @@ sampleTable <- data.frame(sampleName = sampleFiles, fileName = sampleFiles, cond
 
 ddsHTSeq <- DESeqDataSetFromHTSeqCount(sampleTable = sampleTable, directory = directory, design = ~ condition)
 
+# pre-filtering of counts
 keep <- rowSums(counts(ddsHTSeq)) >= 10
 dds <- ddsHTSeq[keep,]
 
 dds$condition <- relevel(dds$condition, ref = "A24wt")
 
-dds <- DESeq(dds)
+# apply LRT
+dds <- DESeq(dds, test = 'LRT', reduced = ~1)
 res <- results(dds)
 
 resOrdered <- res[order(res$pvalue),]
 summary(res)
-write.csv(as.data.frame(resOrdered), file = 'deseq2_genes.csv')
+write.csv(as.data.frame(resOrdered), file = 'deseq2_genes_lrt.csv')
 
 sum(res$padj < 0.1, na.rm=TRUE)
-plotMA(res, ylim=c(-2,2))
 
+# significant differential expressed genes
 resSig <- subset(resOrdered, padj < 0.1)
-write.csv(as.data.frame(resSig), file = 'significant_de_genes.csv')
-write.table(resSig, file = 'DESeq2_significant_genes.txt', sep = "\t")
+write.csv(as.data.frame(resSig), file = 'significant_de_genes_lrt.csv')
 
-EnhancedVolcano(res, lab = rownames(res), x = 'log2FoldChange', y = 'pvalue')
-
+# volcano plot
 EnhancedVolcano(res,
                 lab = rownames(res),
+                selectLab = c(''),
                 x = 'log2FoldChange',
                 y = 'pvalue',
                 title = 'wt versus treated',
-                selectLab = c('MSTRG.4734', 'MSTRG.20167', 'MSTRG.5661', 'MSTRG.23045', 'MSTRG.23124', 'MSTRG.21707', 'MSTRG.16545', 'MSTRG.19589', 'MSTRG.26151'),
                 pCutoff = 10e-32,
                 FCcutoff = 0.5,
                 xlim = c(-21, 21),
-                ylim = c(-2, 300),
                 pointSize = 3.0,
                 labSize = 4.0,
                 legendPosition = 'right',
                 legendLabSize = 10,
-                legendIconSize = 3.0,
-                labCol = 'black',
-                drawConnectors = TRUE,
-                widthConnectors = .5,
-                colConnectors = 'black')
+                legendIconSize = 3.0)
+
+
+# plot counts of three top genes
+col <- c('black', 'blue', 'red', 'green')
+plotCounts(dds, 'MSTRG.13994', intgroup='condition', col = c(rep(col, each = 3)), pch = 16)
+plotCounts(dds, 'MSTRG.17365', intgroup='condition', col = c(rep(col, each = 3)), pch = 16)
+plotCounts(dds, 'MSTRG.10917', intgroup='condition', col = c(rep(col, each = 3)), pch = 16)
+
+
+# draw heatmap of sample-to-sample distances
+library('pheatmap')
+library('RColorBrewer')
+
+vsd <- vst(dds, blind=FALSE)
+sampleDists <- dist(t(assay(vsd)))
+sampleDistMatrix <- as.matrix(sampleDists)
+rownames(sampleDistMatrix) <- paste(vsd$condition, vsd$type, sep="-")
+colnames(sampleDistMatrix) <- NULL
+colors <- colorRampPalette( rev(brewer.pal(9, 'Blues')) )(255)
+pheatmap(sampleDistMatrix,
+         clustering_distance_rows=sampleDists,
+         clustering_distance_cols=sampleDists,
+         col=colors)
