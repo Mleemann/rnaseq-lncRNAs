@@ -12,5 +12,10 @@ GTF=/data/courses/rnaseq/lncRNAs/Project1/michele/stringtie
 for f in `ls $BAM/*.sorted.bam`
 do
 htseq-count -f bam --additional-attr=gene_name ${f} $GTF/stringtie_merged.gtf -s no > ${f}.txt
-mv ${f}.txt /data/courses/rnaseq/lncRNAs/Project1/michele/htseq_count2
+mv ${f}.txt /data/courses/rnaseq/lncRNAs/Project1/michele/htseq_count
 done
+
+cd /data/courses/rnaseq/lncRNAs/Project1/michele/htseq_count
+
+module add UHTS/Analysis/MultiQC/1.8
+multiqc .
