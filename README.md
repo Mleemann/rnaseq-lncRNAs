@@ -1,5 +1,7 @@
 # RNA expression in cisplatin resistant non-small lung cancer cells
 
+Project to get insight on mechanisms of cisplatin resistance mechanisms on behalf of differential RNA expression in sensitive and resistant non-small lung cancer cells. 
+
 ## Workflow of the project
 
 Dataset: 3 replicates for each of 4 condition (A24wt, Pt2, Pt4, Pt8), each replicate has 4 fastq-files (R1_L1, R1_L2, R2_L1, R2_L2) 
